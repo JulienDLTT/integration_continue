@@ -5,4 +5,9 @@ jobs:
     steps:
       - uses: actions/setup-python@v2
       - uses: actions/checkout@v2
-      - run: python main.py
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-python-${{ hashFiles('**/requirements.txt') }}
+      - run: pip install -r requirements.txt
+      - run: python -m pytes
